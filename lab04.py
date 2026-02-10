@@ -75,11 +75,13 @@ def get_unit(property, unit=""):
         print("Unsupported unit")
         return False
     
-
+#accepts the unit and value for mass
 def convert_mass(unit, value):
+    #ensures mass is positive
     if value < 0:
         print("You can't have a negative mass!")
         return False
+    #converts the following units
     elif unit == "mg":
         return value / 1000.00
     elif unit =="g":
@@ -88,10 +90,13 @@ def convert_mass(unit, value):
         return value * 1000.00
     elif unit == "lbs":
         return value * 453.592
+    #if none of the previous units are detected return False
     else:
         return False
-                    
+                
+#accepts the unit and value for speed
 def convert_speed(unit, value):
+    #converts the following units
     if unit == "km/h":
         return value * 0.277778
     elif unit == "ft/s":
@@ -100,12 +105,13 @@ def convert_speed(unit, value):
         return value
     elif unit =="mph":
         return value * 0.44704
+    #if none of the previous units are detected return False
     else:
-        return False
-    
+        return False   
  
-    
+#accepts the unit and value for distance
 def convert_distance(unit, value):
+    #converts the following units
     if unit == "cm":
         return value / 100.00
     elif unit == "km":
@@ -116,18 +122,25 @@ def convert_distance(unit, value):
         return value * 0.3048
     elif unit == "m":
         return value
+    #if none of the previous units are detected return False
     else:
         return False
-    
+
+#accepts the unit and value for temperature
 def convert_temperature(unit, value):
+    #converts the following units
     if unit == "F":
         return (value - 32.00) * (5.00 / 9.00)
     elif unit == "K":
         return value - 273.15
     elif unit == "C":
         return value
+    #if none of the previous units are detected return False
     else:
         return False
+
+
+
 
 if __name__ == "__main__":
     #greets user, lists options and asks user for unit input
@@ -137,18 +150,19 @@ if __name__ == "__main__":
    #accepts the unit needing converted and activates def get_property and returns prop if valid
     
     
-    prop_val = get_property() #TODO: Implement get_property() to take in user input and validate it
+    prop_val = get_property() #Implements get_property() to take in user input and validate it
     if prop_val is False:
         exit()
 
-    unit = get_unit(prop_val)
+    unit = get_unit(prop_val) #Implements get_unit() to take in user input and validate it with get_property
     if unit is False:
         exit()
 
 
-    print("Please input a value:")
-    value = float(input())
+    print("Please input a value:") #ask user for digit/number of units wanting to be calculated
+    value = float(input()) #accepts input as float
 
+    #locates the property, tells program to return to the def function that equals that property and returns adjusted by sending the unit and value
     if prop_val == "mass":
         result = convert_mass(unit, value)
         final_unit = "grams"
@@ -161,8 +175,9 @@ if __name__ == "__main__":
     elif prop_val == "temperature":
         result = convert_temperature(unit, value)
         final_unit = "Celsius"
+    #ensures value is correct
     else:
         result = False
         
-    if result is not False:
+    if result is not False: #displays final result using previous
         print(f"{value:.2f} {unit} in {final_unit}: {result:.2f}")
